@@ -1,0 +1,2 @@
+imports:
+    - { resource: "@SyliusReportBundle/Resources/config/grids/report.yml" }

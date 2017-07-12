@@ -83,6 +83,9 @@
             <tag name="form.type" alias="sylius_renderer_table" />
         </service>
 
+        <service id="sylius.form.type.report" class="%sylius.form.type.report.renderer.table_configuration.class%">
+            <tag name="form.type" alias="sylius_renderer_table" />
+        </service>
     </services>
 
 </container>
