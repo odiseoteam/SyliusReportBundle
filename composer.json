@@ -35,7 +35,7 @@
         "sylius/report": "^1.0",
         "sylius/money-bundle": "^1.0",
         "sylius/resource-bundle": "^1.0",
-        "symfony/framework-bundle": "^2.8"
+        "symfony/framework-bundle": "^3.2"
     },
     "require-dev": {
         "phpspec/phpspec": "^3.0",
