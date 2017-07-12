@@ -1,5 +1,5 @@
 {
-    "name": "sylius/report-bundle",
+    "name": "odiseoteam/sylius-report-bundle",
     "type": "symfony-bundle",
     "description": "Flexible report system for Symfony2 ecommerce applications.",
     "keywords": ["report", "shop", "webshop", "ecommerce", "sylius"],
