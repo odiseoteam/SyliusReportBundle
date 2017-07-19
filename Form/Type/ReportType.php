@@ -13,6 +13,8 @@ namespace Sylius\Bundle\ReportBundle\Form\Type;
 
 use Sylius\Bundle\ReportBundle\Form\EventListener\BuildReportDataFetcherFormSubscriber;
 use Sylius\Bundle\ReportBundle\Form\EventListener\BuildReportRendererFormSubscriber;
+use Sylius\Bundle\ReportBundle\Form\Type\DataFetcher\DataFetcherChoiceType;
+use Sylius\Bundle\ReportBundle\Form\Type\Renderer\RendererChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Component\Registry\ServiceRegistryInterface;
@@ -71,10 +73,10 @@ class ReportType extends AbstractResourceType
                 'label' => 'sylius.form.report.description',
                 'required' => false,
             ])
-            ->add('dataFetcher', 'sylius_data_fetcher_choice', [
+            ->add('dataFetcher', DataFetcherChoiceType::class, [
                 'label' => 'sylius.form.report.data_fetcher',
             ])
-            ->add('renderer', 'sylius_renderer_choice', [
+            ->add('renderer', RendererChoiceType::class, [
                 'label' => 'sylius.form.report.renderer.label',
             ])
         ;
@@ -134,7 +136,7 @@ class ReportType extends AbstractResourceType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'sylius_report';
     }
