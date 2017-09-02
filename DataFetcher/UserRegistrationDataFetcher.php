@@ -11,9 +11,8 @@
 
 namespace Sylius\Bundle\ReportBundle\DataFetcher;
 
-use Sylius\Bundle\ReportBundle\DataFetcher\TimePeriod;
+use Sylius\Bundle\ReportBundle\Form\Type\DataFetcher\UserRegistrationType;
 use Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository;
-use Sylius\Component\Report\DataFetcher\DefaultDataFetchers;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -46,6 +45,6 @@ class UserRegistrationDataFetcher extends TimePeriod
      */
     public function getType()
     {
-        return DefaultDataFetchers::USER_REGISTRATION;
+        return UserRegistrationType::class;
     }
 }

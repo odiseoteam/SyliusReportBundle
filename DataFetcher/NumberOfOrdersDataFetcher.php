@@ -46,6 +46,6 @@ class NumberOfOrdersDataFetcher extends TimePeriod
      */
     public function getType()
     {
-        return DefaultDataFetchers::NUMBER_OF_ORDERS;
+        return NumberOfOrdersDataFetcher::class;
     }
 }

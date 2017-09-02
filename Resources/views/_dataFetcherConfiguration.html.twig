@@ -1,0 +1,13 @@
+{% if configurationForm.timePeriod is defined %}
+<div class="col-md-12">
+    {% for field in configurationForm.timePeriod %}
+        {{ form_row(field) }}
+    {% endfor %}
+</div>
+<hr>
+{% endif %}
+<div class="col-md-12">
+    {% for field in configurationForm %}
+        {{ form_row(field) }}
+    {% endfor %}
+</div>

@@ -11,7 +11,7 @@
 
 namespace Sylius\Bundle\ReportBundle\Form\Type\DataFetcher;
 
-use Sylius\Bundle\CoreBundle\DataFetcher\SalesTotalDataFetcher;
+use Sylius\Bundle\ReportBundle\DataFetcher\SalesTotalDataFetcher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 

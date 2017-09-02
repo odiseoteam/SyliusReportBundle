@@ -19,12 +19,6 @@ sylius_grid:
                     sortable: code
                     options:
                         template: "@SyliusUi/Grid/Field/nameAndDescription.html.twig"
-                enabled:
-                    type: twig
-                    label: sylius.ui.enabled
-                    sortable: ~
-                    options:
-                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
             filters:
                 code:
                     type: string
@@ -37,5 +31,7 @@ sylius_grid:
                     create:
                         type: create
                 item:
+                    show:
+                        type: show
                     update:
                         type: update

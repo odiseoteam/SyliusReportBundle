@@ -10,15 +10,27 @@
     </div>
     <div class="column">
         <div class="ui segment">
-            <h4 class="ui dividing header">{{ 'sylius.ui.additional_information'|trans }}</h4>
+            <h4 class="ui dividing header">{{ 'sylius.ui.configuration'|trans }}</h4>
             <div class="two fields">
                 {{ form_row(form.dataFetcher) }}
+                {% for name, dataFetcherConfigurationPrototype in form.vars.prototypes.dataFetchers %}
+                    <div id="{{ form.dataFetcher.vars.id }}_{{ name }}" data-container="#data_fetcher.configuration" data-prototype="{{ include('SyliusReportBundle::_dataFetcherConfiguration.html.twig', { 'configurationForm': dataFetcherConfigurationPrototype })|e }}">
+                    </div>
+                {% endfor %}
+                {{ form_row(form.renderer) }}
+                {% for name, rendererConfigurationPrototype in form.vars.prototypes.renderers %}
+                    <div id="{{ form.renderer.vars.id }}_{{ name }}" data-container="#renderer.configuration" data-prototype="{{ form_widget(rendererConfigurationPrototype)|e }}"></div>
+                {% endfor %}
             </div>
         </div>
         <div class="ui segment">
-            <h4 class="ui dividing header">{{ 'sylius.ui.preferences'|trans }}</h4>
-            <div class="two fields">
-                {{ form_row(form.renderer) }}
+            <h4 class="ui dividing header">{{ 'sylius.ui.renderers_configuration'|trans }}</h4>
+            <div class="two fields" id="sylius_report_renderer_configuration">
+            </div>
+        </div>
+        <div class="ui segment">
+            <h4 class="ui dividing header">{{ 'sylius.ui.data_fetcher_configuration'|trans }}</h4>
+            <div class="two fields" id="sylius_report_dataFetcher_configuration">
             </div>
         </div>
     </div>

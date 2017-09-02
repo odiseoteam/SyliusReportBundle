@@ -28,7 +28,7 @@ class RendererChoiceType extends AbstractType
 
     public function __construct(array $renderers)
     {
-        $this->renderers = $renderers;
+        $this->renderers = array_combine(array_keys($renderers), array_keys($renderers));
     }
 
     /**

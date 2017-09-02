@@ -3,7 +3,7 @@ sylius_admin_report:
         alias: sylius.report
         section: admin
         templates: SyliusAdminBundle:Crud
-        except: ['show', 'delete']
+        except: ['delete']
         redirect: update
         grid: sylius_admin_report
         permission: true
