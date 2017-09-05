@@ -35,7 +35,7 @@ class ChartConfigurationType extends AbstractType
             ->add('template', 'choice', [
                 'label' => 'sylius.form.report.renderer.template',
                 'choices' => [
-                    'SyliusReportBundle:Chart:default.html.twig' => 'Default',
+                    'Default' => 'SyliusReportBundle:Chart:default.html.twig',
                 ],
             ])
         ;

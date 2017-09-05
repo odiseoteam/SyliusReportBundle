@@ -3,25 +3,27 @@
 {% import 'SyliusResourceBundle:Macros:buttons.html.twig' as buttons %}
 
 {% if values|length > 0 %}
-    <table id="results" class="table table-bordered table-condensed">
+<div class="ui segment">
+    <table class="ui sortable stackable celled table">
         <thead>
-            <tr>
-                <th>{{ sylius_resource_sort('id', '#') }}</th>
-                {% for label in labels %}
-                    <th>{{ sylius_resource_sort('label', label) }}</th>
-                {% endfor %}
-            </tr>
+        <tr>
+            <th>{{ 'id' }}</th>
+            {% for label in labels %}
+                <th>{{ label }}</th>
+            {% endfor %}
+        </tr>
         </thead>
         <tbody>
-            {% for key,value in values %}
-                <tr id="{{ loop.index }}">
-                    <td>{{ loop.index }}</td>
-                    <td>{{ key }}</td>
-                    <td>{{ value }}</td>
-                </tr>
-            {% endfor %}
+        {% for key,value in values %}
+            <tr id="{{ loop.index }}">
+                <td>{{ loop.index }}</td>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
+</div>
 {% else %}
     <span>{{ 'sylius.ui.there_are_no_reports_created'|trans }}</span>
 {% endif %}

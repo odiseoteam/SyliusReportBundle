@@ -11,6 +11,8 @@
 
 namespace Sylius\Bundle\ReportBundle\DataFetcher;
 
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\EntityManager;
 use Sylius\Component\Report\DataFetcher\Data;
 use Sylius\Component\Report\DataFetcher\DataFetcherInterface;
 
@@ -26,14 +28,27 @@ abstract class TimePeriod implements DataFetcherInterface
     const PERIOD_YEAR = 'year';
 
     /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @return array
      */
     public static function getPeriodChoices()
     {
         return [
-            self::PERIOD_DAY => 'Daily',
-            self::PERIOD_MONTH => 'Monthly',
-            self::PERIOD_YEAR => 'Yearly',
+            'Daily' => self::PERIOD_DAY,
+            'Monthly' => self::PERIOD_MONTH,
+            'Yearly' => self::PERIOD_YEAR,
         ];
     }
 
@@ -84,6 +99,42 @@ abstract class TimePeriod implements DataFetcherInterface
         $data->setData($fetched);
 
         return $data;
+    }
+
+    protected function addTimePeriodQueryBuilder(QueryBuilder $queryBuilder, array $configuration = [], $dateField = 'o.completed_at')
+    {
+        $groupBy = $this->getGroupBy($configuration);
+        $queryBuilder
+            ->andWhere($queryBuilder->expr()->gte($dateField, ':from'))
+            ->andWhere($queryBuilder->expr()->lte($dateField, ':to'))
+            ->setParameter('from', $configuration['start']->format('Y-m-d H:i:s'))
+            ->setParameter('to', $configuration['end']->format('Y-m-d H:i:s'))
+            ->groupBy($groupBy)
+            ->orderBy($groupBy)
+        ;
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Devuelve una cadena concatenada de todos los tipos de agrupación pasados
+     * por la configuración.
+     *
+     * @param array $configuration
+     * @return string
+     */
+    protected function getGroupBy(array $configuration = [])
+    {
+        $groupBy = '';
+
+        foreach ($configuration['groupBy'] as $groupByElement) {
+            $groupBy = $groupByElement.'(date)'.' '.$groupBy;
+        }
+
+        $groupBy = substr($groupBy, 0, -1);
+        $groupBy = str_replace(' ', ', ', $groupBy);
+
+        return $groupBy;
     }
 
     /**

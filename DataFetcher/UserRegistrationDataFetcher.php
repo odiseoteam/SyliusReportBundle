@@ -11,8 +11,9 @@
 
 namespace Sylius\Bundle\ReportBundle\DataFetcher;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Sylius\Bundle\ReportBundle\Form\Type\DataFetcher\UserRegistrationType;
-use Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository;
+use Sylius\Component\User\Model\UserInterface;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -20,24 +21,31 @@ use Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository;
 class UserRegistrationDataFetcher extends TimePeriod
 {
     /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
-     * @param UserRepository $userRepository
-     */
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function getData(array $configuration = [])
     {
-        return $this->userRepository->getRegistrationStatistic($configuration);
+        $groupBy = $this->getGroupBy($configuration);
+
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $this->entityManager->getConnection()->createQueryBuilder();
+        $tableName = $this->entityManager->getClassMetadata(UserInterface::class)->getTableName();
+
+        $queryBuilder
+            ->select('DATE(u.created_at) as date', ' count(u.id) as user_total')
+            ->from($tableName, 'u')
+            ->where($queryBuilder->expr()->gte('u.created_at', ':from'))
+            ->andWhere($queryBuilder->expr()->lte('u.created_at', ':to'))
+            ->setParameter('from', $configuration['start']->format('Y-m-d H:i:s'))
+            ->setParameter('to', $configuration['end']->format('Y-m-d H:i:s'))
+            ->groupBy($groupBy)
+            ->orderBy($groupBy)
+        ;
+
+        return $queryBuilder
+            ->execute()
+            ->fetchAll()
+        ;
     }
 
     /**

@@ -11,9 +11,8 @@
 
 namespace Sylius\Bundle\ReportBundle\DataFetcher;
 
-use Sylius\Bundle\ReportBundle\DataFetcher\TimePeriod;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Report\DataFetcher\DefaultDataFetchers;
+use Sylius\Bundle\ReportBundle\Form\Type\DataFetcher\NumberOfOrdersType;
+use Sylius\Component\Order\Model\OrderInterface;
 
 /**
  * @author Łukasz Chruściel <lukasz.chrusciel@lakion.com>
@@ -21,24 +20,29 @@ use Sylius\Component\Report\DataFetcher\DefaultDataFetchers;
 class NumberOfOrdersDataFetcher extends TimePeriod
 {
     /**
-     * @var OrderRepositoryInterface
-     */
-    private $orderRepository;
-
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     */
-    public function __construct(OrderRepositoryInterface $orderRepository)
-    {
-        $this->orderRepository = $orderRepository;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function getData(array $configuration = [])
     {
-        return $this->orderRepository->ordersBetweenDatesGroupByDate($configuration);
+        $groupBy = $this->getGroupBy($configuration);
+
+        $queryBuilder = $this->entityManager->getConnection()->createQueryBuilder();
+
+        $queryBuilder
+            ->select('DATE(o.checkout_completed_at) as date', 'COUNT(o.id) as "Number of orders"')
+            ->from($this->entityManager->getClassMetadata(OrderInterface::class)->getTableName(), 'o')
+            ->where($queryBuilder->expr()->gte('o.checkout_completed_at', ':from'))
+            ->andWhere($queryBuilder->expr()->lte('o.checkout_completed_at', ':to'))
+            ->setParameter('from', $configuration['start']->format('Y-m-d H:i:s'))
+            ->setParameter('to', $configuration['end']->format('Y-m-d H:i:s'))
+            ->groupBy($groupBy)
+            ->orderBy($groupBy)
+        ;
+
+        return $queryBuilder
+            ->execute()
+            ->fetchAll()
+        ;
     }
 
     /**
@@ -46,6 +50,6 @@ class NumberOfOrdersDataFetcher extends TimePeriod
      */
     public function getType()
     {
-        return NumberOfOrdersDataFetcher::class;
+        return NumberOfOrdersType::class;
     }
 }

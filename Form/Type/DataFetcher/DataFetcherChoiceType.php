@@ -29,7 +29,7 @@ class DataFetcherChoiceType extends AbstractType
      */
     public function __construct($dataFetchers)
     {
-        $this->dataFetchers = array_combine(array_keys($dataFetchers), array_keys($dataFetchers));
+        $this->dataFetchers = array_combine(array_values($dataFetchers), array_keys($dataFetchers));
     }
 
     /**
