@@ -36,9 +36,20 @@
         <parameter key="sylius.report.data_fetcher.number_of_orders.class">Sylius\Bundle\ReportBundle\DataFetcher\NumberOfOrdersDataFetcher</parameter>
         <parameter key="sylius.report.data_fetcher.sales_total.class">Sylius\Bundle\ReportBundle\DataFetcher\SalesTotalDataFetcher</parameter>
         <parameter key="sylius.report.data_fetcher.user_registration.class">Sylius\Bundle\ReportBundle\DataFetcher\UserRegistrationDataFetcher</parameter>
+
+        <parameter key="sylius.report.listener.admin.menu_builder.class">Sylius\Bundle\ReportBundle\Menu\AdminMenuListener</parameter>
     </parameters>
 
     <services>
+        <service id="sylius.report.listener.admin.menu_builder" class="%sylius.report.listener.admin.menu_builder.class%">
+            <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="addAdminMenuItems" />
+        </service>
+
+        <service id="sylius.report.block_event_listener.admin.layout.javascripts" class="Sylius\Bundle\UiBundle\Block\BlockEventListener">
+            <argument>@SyliusReport/jsBlock.html.twig</argument>
+            <tag name="kernel.event_listener" event="sonata.block.event.sylius.admin.layout.javascripts" method="onBlockEvent" />
+        </service>
+
         <!-- Registry -->
         <service id="sylius.registry.report.data_fetcher" class="%sylius.registry.report.class%">
             <argument>Sylius\Component\Report\DataFetcher\DataFetcherInterface</argument>
