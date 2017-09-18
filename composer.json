@@ -28,7 +28,7 @@
         }
     ],
     "require": {
-        "php": "^5.6|^7.0",
+        "php": "^7.1",
 
         "stof/doctrine-extensions-bundle": "~1.1",
         "sylius/registry": "^1.0",
@@ -51,8 +51,6 @@
     "autoload-dev": {
         "psr-4": { "Sylius\\Bundle\\ReportBundle\\spec\\": "spec/" }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "repositories": [
         {
             "type": "path",
