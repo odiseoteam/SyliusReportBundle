@@ -43,6 +43,8 @@ class ReportType extends AbstractResourceType
     protected $dataFetcherRegistry;
 
     /**
+     * @param string $dataClass FQCN
+     * @param string[] $validationGroups
      * @param ServiceRegistryInterface $rendererRegistry
      * @param ServiceRegistryInterface $dataFetcherRegistry
      */

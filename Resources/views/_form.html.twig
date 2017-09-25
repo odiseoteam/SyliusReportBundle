@@ -26,6 +26,7 @@
             {{ form_row(form.renderer) }}
             <div class="ui divider"></div>
             <div class="two fields" id="sylius_report_renderer_configuration">
+                {{ include('SyliusReportBundle::_rendererConfiguration.html.twig', { 'configurationForm': form.rendererConfiguration }) }}
             </div>
         </div>
         <div class="ui segment">
@@ -33,6 +34,7 @@
             {{ form_row(form.dataFetcher) }}
             <div class="ui divider"></div>
             <div class="two grouped fields" id="sylius_report_dataFetcher_configuration">
+                {{ include('SyliusReportBundle::_dataFetcherConfiguration.html.twig', { 'configurationForm': form.dataFetcherConfiguration }) }}
             </div>
         </div>
     </div>
