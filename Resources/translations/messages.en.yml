@@ -5,6 +5,7 @@ sylius:
         data_fetchers: Data Fetchers
         no_data: No data
         new_report: New report
+        show_report: Show report
     form:
         report:
             name: Name
