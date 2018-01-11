@@ -124,9 +124,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col-xs-12">
-        <div class="row">
-            <canvas id="{{ report.code }}" data-type="{{ configuration.type }}" data-labels="{% for key,item in values %}{{ key }}{% if loop.index != loop.length %};{% endif %}{% endfor %}" data-values="{% for key,item in values %}{{ item }}{% if loop.index != loop.length %};{% endif %}{% endfor %}" height="400"></canvas>
-        </div>
+    <div class="ui segment">
+        <canvas id="{{ report.code }}" data-type="{{ configuration.type }}" data-labels="{% for key,item in values %}{{ key }}{% if loop.index != loop.length %};{% endif %}{% endfor %}" data-values="{% for key,item in values %}{{ item }}{% if loop.index != loop.length %};{% endif %}{% endfor %}" height="400"></canvas>
     </div>
 {% endblock %}

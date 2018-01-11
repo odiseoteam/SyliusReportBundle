@@ -33,7 +33,7 @@
             <h4 class="ui dividing header">{{ 'sylius.ui.data_fetchers'|trans }}</h4>
             {{ form_row(form.dataFetcher) }}
             <div class="ui divider"></div>
-            <div class="two grouped fields" id="sylius_report_dataFetcher_configuration">
+            <div class="field" id="sylius_report_dataFetcher_configuration">
                 {{ include('SyliusReportBundle::_dataFetcherConfiguration.html.twig', { 'configurationForm': form.dataFetcherConfiguration }) }}
             </div>
         </div>
