@@ -12,11 +12,15 @@
     $(document).ready(function() {
         $('#sylius_report_renderer').handlePrototypes({
             'prototypePrefix': 'sylius_report_renderer_renderers',
-            'containerSelector': '#sylius_report_renderer_configuration',
+            'containerSelector': '#sylius_report_renderer_configuration'
         });
         $('#sylius_report_dataFetcher').handlePrototypes({
             'prototypePrefix': 'sylius_report_dataFetcher_dataFetchers',
-            'containerSelector': '#sylius_report_dataFetcher_configuration',
+            'containerSelector': '#sylius_report_dataFetcher_configuration'
+        });
+        $('#sylius_report_dataFetcher').change(function (e) {
+            $('#sylius_report_dataFetcher_configuration .ui.dropdown').dropdown()
+            ;
         });
     });
 })( jQuery );

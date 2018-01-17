@@ -75,7 +75,7 @@ class ReportType extends AbstractResourceType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'sylius.form.report.description',
-                'required' => false,
+                'required' => true,
             ])
             ->add('dataFetcher', DataFetcherChoiceType::class, [
                 'label' => 'sylius.form.report.data_fetcher',
