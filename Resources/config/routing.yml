@@ -23,3 +23,5 @@ sylius_admin_report_show:
         _controller: sylius.controller.report:renderAction
         _sylius:
             template: 'SyliusReportBundle::show.html.twig'
+    requirements:
+        id: '\d+'
