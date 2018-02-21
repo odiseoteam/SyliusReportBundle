@@ -11,8 +11,7 @@
 
 -->
 
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-        >
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
 
     <mapped-superclass name="Sylius\Component\Report\Model\Report" table="sylius_report">
         <id name="id" column="id" type="integer">
@@ -28,6 +27,12 @@
 
         <field name="dataFetcher" column="data_fetcher" type="string" nullable="false" />
         <field name="dataFetcherConfiguration" column="data_fetcher_configuration" type="array" />
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
     </mapped-superclass>
 
 </doctrine-mapping>

@@ -4,10 +4,14 @@ sylius_grid:
             driver:
                 name: doctrine/orm
                 options:
-                    class: Sylius\Component\Report\Model\Report
+                    class: "%sylius.model.report.class%"
             sorting:
-                code: asc
+                id: asc
             fields:
+                id:
+                    type: string
+                    label: sylius.ui.id
+                    sortable: ~
                 code:
                     type: string
                     label: sylius.ui.code
@@ -16,9 +20,24 @@ sylius_grid:
                     type: twig
                     label: sylius.ui.name
                     path: .
-                    sortable: code
                     options:
                         template: "@SyliusUi/Grid/Field/nameAndDescription.html.twig"
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.creation_date
+                    sortable: ~
+                    options:
+                        format: d-m-Y
+                renderer:
+                    type: twig
+                    label: sylius.form.report.renderer.label
+                    options:
+                        template: "@SyliusReport/Grid/Field/renderer.html.twig"
+                dataFetcher:
+                    type: twig
+                    label: sylius.form.report.data_fetcher
+                    options:
+                        template: "@SyliusReport/Grid/Field/renderer.html.twig"
             filters:
                 code:
                     type: string

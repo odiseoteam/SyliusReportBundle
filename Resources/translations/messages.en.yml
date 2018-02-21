@@ -6,6 +6,11 @@ sylius:
         no_data: No data
         new_report: New report
         show_report: Show report
+        sylius_renderer_table: Table renderer
+        sylius_renderer_chart: Chart renderer
+        sylius_data_fetcher_user_registration: User Registration
+        sylius_data_fetcher_sales_total: Sales Total
+        sylius_data_fetcher_number_of_orders: Number of orders
     form:
         report:
             name: Name
