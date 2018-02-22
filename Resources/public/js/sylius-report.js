@@ -18,9 +18,9 @@
             'prototypePrefix': 'sylius_report_dataFetcher_dataFetchers',
             'containerSelector': '#sylius_report_dataFetcher_configuration'
         });
-        $('#sylius_report_dataFetcher').change(function (e) {
-            $('#sylius_report_dataFetcher_configuration .ui.dropdown').dropdown()
-            ;
+        $('#sylius_report_dataFetcher').on('change', function (e) {
+            $('#sylius_report_dataFetcher_configuration .ui.toggle.checkbox').checkbox();
+            $('#sylius_report_dataFetcher_configuration .ui.dropdown').dropdown();
         });
     });
 })( jQuery );
